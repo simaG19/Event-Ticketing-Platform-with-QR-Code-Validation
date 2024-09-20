@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Event extends Model
 {
     use HasFactory;
-
+    protected $primaryKey = 'id'; 
     protected $table='orgevents';
 
     protected $fillable=[
@@ -29,5 +29,13 @@ class Event extends Model
         'start_time' => 'datetime',
         'end_time' => 'datetime',
     ];
+
+   
+public function tickets()
+{
+    return $this->hasMany(Ticket::class, 'event_id', 'id'); // Assuming 'event_id' is the foreign key in the tickets table
+}
+
+
 
 }
