@@ -14,7 +14,8 @@
             </ul>
         </div>
     @endif
-    <form action="{{ url('/organizer/events/create') }}" method="POST">
+    <form action="{{ route('events.store') }}" method="POST">
+
         @csrf
         <div class="form-group">
             <label for="title">Event Title</label>
