@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('ticket_price')->default(0);
             $table->integer('total_tickets')->default(0);
             $table->integer('tickets_sold')->default(0);
+            $table->foreignId('event_id')->constrained();
             $table->foreignId('organizer_id')->constrained('users')->onDelete('cascade'); // Organizer reference
             $table->timestamps();
         });
