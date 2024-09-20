@@ -16,12 +16,13 @@ class EventController extends Controller
 
      public function index()
      {
-         // Get all events for the logged-in organizer
+         // Get the events organized by the logged-in user (event organizer)
          $events = Event::where('organizer_id', Auth::id())->get();
      
-         // Pass the events to the view
-         return view('events.view', compact('events'));
+         // Return the view with events
+         return view('events.index', compact('events'));
      }
+     
 
   
   
@@ -74,6 +75,26 @@ class EventController extends Controller
         return view('events.edit', compact('event'));
     }
 
+
+
+
+    public function viewTickets($event_id)
+{
+    // Retrieve the event by ID (assuming 'id' is the primary key)
+    $event = Event::findOrFail($event_id);
+
+    // Ensure the logged-in organizer owns this event
+    if (Auth::id() !== $event->organizer_id) {
+        return redirect()->route('events.index')->with('error', 'You are not authorized to view ticket sales for this event.');
+    }
+
+    // Fetch tickets associated with the event
+    $tickets = $event->tickets; // Assuming the Event model has a relationship with a Ticket model
+
+    return view('events.tickets', compact('event', 'tickets'));
+}
+
+    
 
 
     public function create()
