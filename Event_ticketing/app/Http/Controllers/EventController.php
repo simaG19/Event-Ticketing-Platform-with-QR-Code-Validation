@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Event;  // Ensure Event model exists
+use App\Models\Ticket;
+use App\Models\Event; // Ensure Event model exists
 use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
@@ -101,6 +102,12 @@ class EventController extends Controller
     {
         return view('events.create');  // This view will contain the event creation form
     }
+
+
+
+// In your TicketController or wherever you handle ticket creation
+
+
 
     /**
      * Store a newly created event in the database.
