@@ -4,6 +4,7 @@ use App\Http\Controllers\mukController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController; // Import EventController
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\StripeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,8 +42,11 @@ Route::get('/organizer', function(){
 
 Route::middleware(['auth', 'Customer'])->group(function(){
     Route::get('/user/events', [UserController::class, 'index'])->name('user.events');
+    //Route::get('/user/events/{event}/tickets', [UserController::class, 'viewTickets'])->name('user.events.tickets');
     Route::get('/user/events/{event}/tickets', [UserController::class, 'viewTickets'])->name('user.events.tickets');
-   // Route::get('/user/events/{event}/tickets', [UserController::class, 'viewTickets'])->name('user.events.tickets');
+    Route::post( '/checkout',  [StripeController::class, 'checkout'])->name('user.events.tickets');
+    Route::get('/success', [StripeController::class, 'success'])->name('success');
+    Route::get('/index', [StripeController::class, 'success'])->name('index');
 
 });
 
@@ -55,6 +59,7 @@ Route::middleware(['auth', 'Event_organizer'])->group(function () {
     Route::get('/organizer/events/{id}/edit', [EventController::class, 'edit'])->name('events.edit');
     Route::put('/organizer/events/{id}', [EventController::class, 'update'])->name('events.update');
     Route::delete('/organizer/events/{id}', [EventController::class, 'destroy'])->name('events.destroy');
+
 });
 // Route::middleware(['auth', 'Customer'])->group(function() {
 //     Route::get('/user/events', [UserController::class, 'index'])->name('user.events');
