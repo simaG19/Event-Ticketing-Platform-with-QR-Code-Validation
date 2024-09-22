@@ -30,12 +30,10 @@ class Event extends Model
         'end_time' => 'datetime',
     ];
 
-   
-public function tickets()
-{
-    return $this->hasMany(Ticket::class, 'event_id', 'id'); // Assuming 'event_id' is the foreign key in the tickets table
-}
-
-
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
+    
 
 }
